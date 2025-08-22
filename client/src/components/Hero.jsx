@@ -2,16 +2,21 @@ import React, { useState } from 'react'
 import { assets, cityList } from '../assets/assets'
 import { useAppContext } from '../context/AppContext';
 import { motion } from 'motion/react';
+import toast from 'react-hot-toast';
 
 const Hero = () => {
 
   const [pickupLocation,setPickupLocation] = useState('');
 
-  const {pickupDate, setPickupDate, returnDate, setReturnDate, navigate} = useAppContext()
+  const {pickupDate, setPickupDate, returnDate, setReturnDate, navigate, user} = useAppContext()
 
   const handleSearch = (e)=>{
     e.preventDefault();
+    if (!user) {
+      toast.error("Please login to continue!");
+    }else{
     navigate('/cars?pickupLocation=' + pickupLocation + '&pickupDate=' + pickupDate + '&returnDate=' + returnDate)
+    }
   }
 
   return (
