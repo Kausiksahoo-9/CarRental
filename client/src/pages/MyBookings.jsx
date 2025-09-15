@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
 import Title from '../components/Title';
 import { useAppContext } from '../context/AppContext';
 import toast from 'react-hot-toast';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 const MyBookings = () => {
   const { axios, user, currency } = useAppContext();
@@ -27,14 +28,15 @@ const MyBookings = () => {
   }, [user]);
 
   return (
-    <motion.div 
-    initial={{opacity: 0, y: 30}}
-    animate={{opacity: 1, y: 0}}
-    transition={{duration: 0.6}}
-    className="px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 text-sm max-w-7xl">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 text-sm max-w-7xl"
+    >
       <Title
         title="My Bookings"
-        subTitle="View and manage your all car bookings"
+        subTitle="View and manage all your car bookings"
         align="left"
       />
 
@@ -42,9 +44,9 @@ const MyBookings = () => {
         {bookings.map((booking, index) => (
           <motion.div
             key={booking._id}
-            initial={{opacity: 0, y: 20}}
-            animate={{opacity: 1, y: 0}}
-            transition={{duration: 0.4, delay: 0.1 * index}}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 * index }}
             className="grid grid-cols-1 md:grid-cols-4 gap-6 p-6 border border-borderColor rounded-lg mt-5 first:mt-12"
           >
             {/* car image + info */}
@@ -123,7 +125,7 @@ const MyBookings = () => {
               )}
             </div>
 
-            {/* price */}
+            {/* price + chat button */}
             <div className="md:col-span-1 flex flex-col justify-between gap-6">
               <div className="text-sm text-gray-500 text-right">
                 <p>Total Price</p>
@@ -132,6 +134,15 @@ const MyBookings = () => {
                   {booking.price}
                 </h1>
                 <p>Booked on {booking.createdAt?.split('T')[0]}</p>
+              </div>
+
+              {/* Chat Button */}
+              <div className="text-right">
+                <Link to={`/chat/${booking._id}`}>
+                  <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                    Chat
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>
