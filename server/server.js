@@ -36,7 +36,7 @@ app.get("/api/chats/:bookingId", async (req, res) => {
 // create HTTP server + socket.io
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: { origin: "https://car-rental-phi-gilt.vercel.app", methods: ["GET", "POST"] },
+  cors: { origin: [ "http://localhost:5173", "https://car-rental-phi-gilt.vercel.app/" ], methods: ["GET", "POST"] },
 });
 
 io.on("connection", (socket) => {
